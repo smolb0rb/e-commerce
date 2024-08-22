@@ -1,5 +1,4 @@
-let minCount = undefined;
-let maxCount = undefined;
+
 
 function showProductsList() {
     let htmlContentToAppend = "";
@@ -7,10 +6,6 @@ function showProductsList() {
       // Itera sobre cada producto dentro del array 'products'
     for (let i = 0; i < currentProductsArray.length; i++) {
         let product = currentProductsArray[i];
-
-        // Genera el contenido HTML para cada producto
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))) {
 
             htmlContentToAppend += `
 
@@ -30,7 +25,7 @@ function showProductsList() {
                 </div>
             </div>
             `
-        }
+        
     }
 
     // Inserta el contenido generado en el div
