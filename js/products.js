@@ -1,31 +1,29 @@
 
-
-function showProductsList() {
+function showProductsList(productsArray) {
     let htmlContentToAppend = "";
-    
-      // Itera sobre cada producto dentro del array 'products'
-    for (let i = 0; i < currentProductsArray.length; i++) {
-        let product = currentProductsArray[i];
 
-            htmlContentToAppend += `
+    // Itera sobre cada producto dentro del array 'products'
+    for (let i = 0; i < productsArray.length; i++) {
+        let product = productsArray[i];
 
-                 <div class="list-group-item list-group-item-action cursor-active">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
+        htmlContentToAppend += `
+        <div class="list-group-item list-group-item-action cursor-active">
+            <div class="row">
+                <div class="col-3">
+                    <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
+                </div>
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1">${product.name}</h4>
+                        <small class="text-muted"> Vendidos hasta el momento: ${product.soldCount}</small>
                     </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${product.name}</h4>
-                            <small class="text-muted"> Vendidos hasta el momento: ${product.soldCount}</small>
-                        </div>
-                        <p class="mb-1">${product.description}</p>
-                        <h5 class="mb-1">${product.currency} ${product.cost}</h5>
-                    </div>
+                    <p class="mb-1">${product.description}</p>
+                    <h5 class="mb-1">${product.currency} ${product.cost}</h5>
                 </div>
             </div>
-            `
-        
+        </div>
+        `
+
     }
 
     // Inserta el contenido generado en el div
@@ -38,10 +36,9 @@ document.addEventListener("DOMContentLoaded", function(e) {
         if (resultObj.status === "ok") {
             console.log (resultObj.data)
             // Accede a la lista de productos dentro del objeto JSON
-            currentProductsArray = resultObj.data.products;
-            showProductsList();
-            console.log(currentProductsArray)
-            
+            let productsArray = resultObj.data.products;
+            showProductsList(productsArray);
+            console.log(productsArray)
         }
     });
 });
