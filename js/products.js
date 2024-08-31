@@ -9,15 +9,15 @@ function showProductsList(productsArray) {
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action cursor-active">
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 col-sm-6">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
                 </div>
                 <div class="col">
+                    <small class="float-end text-muted"> Vendidos hasta el momento: ${product.soldCount}</small>
                     <div class="d-flex w-100 justify-content-between">
                         <h4 class="mb-1">${product.name}</h4>
-                        <small class="text-muted"> Vendidos hasta el momento: ${product.soldCount}</small>
                     </div>
-                    <p class="mb-1">${product.description}</p>
+                    <p class="mb-1 small">${product.description}</p>
                     <h5 class="mb-1">${product.currency} ${product.cost}</h5>
                 </div>
             </div>
