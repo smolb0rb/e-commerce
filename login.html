@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pantalla de Login</title>
-  <link rel="stylesheet" href="css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla de Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="login.js"></script>
+    <style>
+        .table-no-border {
+            border-collapse: collapse;
+        }
+        .table-no-border td, .table-no-border th {
+            border: none;
+        }
+        .img-small {
+            max-width: 50%;
+            height: auto;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="login-container">
+
+<div class="login-container mt-5">
     <form id="loginForm">
-      <label for="username">Usuario:</label>
-      <input type="text" id="username" name="username" placeholder="Ingrese su usuario">
+    <table class="table table-no-border">
+        <tbody>
+            <!-- Fila 1: Imagen centrada -->
+            <tr>
+                <td class="text-center">
+                    <img src="img/emercado-login.png" alt="Imagen" class="img-fluid" style="max-width: 70%;">
 
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+                </td>
+            </tr>
+            <!-- Fila 2: Texto centrado -->
+            <tr>
+                <td class="text-center">
+                    <b>Para ingresar escriba su usuario y contraseña.</b>
+                </td>
+            </tr>
+            <!-- Fila 3: Texto alineado a la izquierda -->
+            <tr>
+                <td class="text-start">
+                    <label for="username">Usuario:</label>
+                </td>
+            </tr>
+            <!-- Fila 4: Textbox -->
+            <tr>
+                <td class="text-start">
+                    <input type="text" id="username" name="username" placeholder="Ingrese su usuario">
+                </td>
+            </tr>
+            <!-- Fila 5: Texto alineado a la izquierda -->
+            <tr>
+                <td class="text-start">
+                    <label for="password">Contraseña:</label>
+                </td>
+            </tr>
+            <!-- Fila 6: Textbox -->
+            <tr>
+                <td class="text-start">
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+                </td>
+            </tr>
+            <!-- Fila 7: Botón centrado -->
+            <tr>
+                <td class="text-center">
+                    <button type="submit" >Ingresar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+</div>
+<script src="js/login.js"></script>
 
-      <button type="submit">Ingresar</button>
-    </form>
-  </div>
-  <script src="js/login.js"></script>
 </body>
-
 </html>
