@@ -1,15 +1,11 @@
-body {
-    font-family: 'Verdana', serif;
-    background-size: cover;
-    margin: 0;
-    display: flex;
-    background-color: #F8F8F8 ;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-.login-container {
-    background-color: #F8F8F8 ;
-    border-radius: 0px;
-    box-shadow: none;
+body {
+    font-family: 'Inter', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    background-color: #F8F8F8;
 }
 
 label {
@@ -22,16 +18,16 @@ label {
 input[type="text"],
 input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 15px;
     border: 2px solid #577cf1;
-    border-radius: 5px;
+    border-radius: 10px;
     box-sizing: border-box;
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 6px;
     background-color: #b3c7f7;
     color: black;
     border: none;
