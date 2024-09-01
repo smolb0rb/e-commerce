@@ -188,3 +188,11 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+li#userNav.nav-item {
+  color: white;
+  display:block;
+  padding: .5rem 1rem;
+  text-decoration: none;
+  transition: color .15 ease-in-out, background-color .15s ease in-out, border-color .15s ease-in-out;
+}

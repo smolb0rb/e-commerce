@@ -47,3 +47,12 @@ function isLoggedIn() {
 if (!isLoggedIn()) {
   document.location = 'login.html'
 }
+
+if (isLoggedIn()) {
+  const username = localStorage.getItem("username")
+
+  const userNav = document.getElementById("userNav");
+
+  userNav.innerHTML = username;
+}
+

@@ -27,6 +27,8 @@ loginForm.addEventListener("submit", function(event) {
     // Si las credenciales son correctas, establecer la autenticación
     localStorage.setItem("isAuthenticated", "true");
 
+    localStorage.setItem("username", username);
+
     // Redirige al index
-    document.location = "index.html";
+    window.location.href = "index.html";
 });
