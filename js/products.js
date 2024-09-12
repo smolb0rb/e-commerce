@@ -7,7 +7,7 @@ function showProductsList(productsArray) {
         let product = productsArray[i];
 
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action cursor-active">
+        <div class="list-group-item list-group-item-action cursor-active" data-id="${product.id}" onclick="selectProduct(${product.id})">  
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -52,3 +52,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 
 });
+
+
+
+function selectProduct(productId){
+    localStorage.setItem("selectedProductId",productId);
+
+    window.location.href = "product-info.html"; 
+}
