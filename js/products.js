@@ -31,14 +31,24 @@ function showProductsList(productsArray) {
 }   
 
 // petición de json
-document.addEventListener("DOMContentLoaded", function(e) {
-    getJSONData("https://japceibal.github.io/emercado-api/cats_products/101.json").then(function(resultObj) {
+document.addEventListener("DOMContentLoaded", function (e) {
+
+    let catID = localStorage.getItem("catID");
+
+    let url = PRODUCTS_URL + catID + EXT_TYPE;
+
+
+
+    // Realizar la solicitud a la URL 
+    getJSONData(url).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            console.log (resultObj.data)
-            // Accede a la lista de productos dentro del objeto JSON
+            console.log(resultObj.data);
+
+            // Acceder a la lista de productos dentro del objeto JSON
             let productsArray = resultObj.data.products;
             showProductsList(productsArray);
-            console.log(productsArray)
+            console.log(productsArray);
         }
     });
+
 });
