@@ -40,6 +40,19 @@
     <div class="text-center p-4">
       <h2>Productos</h2>
       <p class="lead">Verás aquí todos los productos del sitio.</p>
+
+      <input type="text" name="" id="searchBar" placeholder="Buscar">
+      <br>
+
+      <button onclick="showProducts(sortByName(true))">asc name</button>
+      <button onclick="showProducts(sortByName(false))">desc name</button>
+
+      <button onclick="showProducts(sortByPrice(true))">asc price</button>
+      <button onclick="showProducts(sortByPrice(false))">desc price</button>
+
+      <button onclick="showProducts(sortBySold(true))">asc sold</button>
+      <button onclick="showProducts(sortBySold(false))">desc sold</button>
+
     </div>
     </div>
     <div class="list-group" id="product-list-container">
