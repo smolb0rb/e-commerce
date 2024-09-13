@@ -101,3 +101,27 @@ searchBar.addEventListener("input", function(e) {
 function contains(str, find) {
     return str.toLowerCase().indexOf(find.toLowerCase()) != -1;
 }
+
+// Filtro por rango de precio
+
+let priceFilterBtn = document.getElementById('priceFilterBtn');
+
+priceFilterBtn.addEventListener("click", function(e) {
+    let minPrice = document.getElementById('priceFilterMin').value || 0;
+    let maxPrice = document.getElementById('priceFilterMax').value;
+
+    let result = productsCache.filter(p => {
+        return (p.cost >= minPrice) && (maxPrice ? (p.cost <= maxPrice) : true);
+    });
+
+    showProducts(result);
+});
+
+let priceFilterClearBtn = document.getElementById('priceFilterClearBtn');
+
+priceFilterClearBtn.addEventListener("click", function(e) {
+    document.getElementById('priceFilterMin').value = undefined;
+    document.getElementById('priceFilterMax').value = undefined;
+
+    showProducts(productsCache)
+});
