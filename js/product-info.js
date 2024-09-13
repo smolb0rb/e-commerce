@@ -20,19 +20,32 @@ function showProductInfo(product, categoryName) {
     productInfoContainer.innerHTML = `
     <div class="row">
 
-        <div class="col-md-5 text-center">
+        <div class="col-md-6 text-center">
             <div class="slider-wrapper">
                 <div class="slider"></div>
                 <div class="slider-nav"></div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <h1> <b> ${product.name} </b> </h1>
-            <h3>${categoryName}</h3>
-            <h2> <b> Vendidos: ${product.soldCount} </b> </h2> 
+        <div class="col-md-6">
+            <h1><b>${product.name}</b></h1>
 
-            <div class="card" style="width: 50rem;">
+            <table>
+                <tr>
+                    <td>Categoria:<td>
+                    <td>${product.category}<td>
+                </tr>
+                <tr>
+                    <td>Vendidos:<td>
+                    <td>${product.soldCount}<td>
+                </tr>
+                <tr>
+                    <td>Precio:<td>
+                    <td><b>${product.currency} ${product.cost}</b><td>
+                </tr>
+            </table>
+            <br/>
+            <div class="card" style="max-width: 50rem;">
                 <div class="card-body">
                     <h5 class="card-title"> <b> Descripción </b> </h5>
                     <p class="card-text">${product.description}</p>

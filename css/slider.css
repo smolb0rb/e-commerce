@@ -1,11 +1,10 @@
 .slider-wrapper {
     position: relative;
-    max-width: 32rem;
     margin: 0 auto;
 }
 
 .slider {
-    filter: drop-shadow(0 0 0.75rem rgb(219, 36, 73));
+    filter: drop-shadow(0 0 3px rgb(90, 90, 90));
     display: flex;
     aspect-ratio: 16 / 9;
     overflow-x: auto;
