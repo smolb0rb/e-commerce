@@ -19,16 +19,12 @@ function showProductInfo(product, categoryName) {
     // Estructura de como se muestra esa info
     productInfoContainer.innerHTML = `
     <div class="row">
-        <div class="col-md-1 text-center" style="width: 64px; margin-left: 90px;">
-            <button style="margin-top: 195px;">&lt;</button>
-        </div>
 
         <div class="col-md-5 text-center">
-            <img src="${product.images[0]}" alt="${product.description}"class="img-fluid img-thumbnail mb-4" >
-        </div>
-
-        <div class="col-md-1 text-center" style="width: 64px">
-            <button style="margin-top: 195px;">&gt;</button>
+            <div class="slider-wrapper">
+                <div class="slider"></div>
+                <div class="slider-nav"></div>
+            </div>
         </div>
 
         <div class="col-md-4">
@@ -45,4 +41,23 @@ function showProductInfo(product, categoryName) {
         </div>
     </div>
     `
+
+    for (let i = 0; i < product.images.length; i++) {
+        let imgUrl = product.images[i];
+
+        let sliderImages = productInfoContainer.querySelector('.slider');
+        let sliderNav = productInfoContainer.querySelector('.slider-nav');
+
+        let slideImg = document.createElement('img');
+        slideImg.src = imgUrl;
+        slideImg.id = "slide-" + (i+1);
+
+        sliderImages.appendChild(slideImg)
+
+        let slideJump = document.createElement('a');
+        slideJump.href = "#" + slideImg.id;
+
+        sliderNav.appendChild(slideJump);
+    }
+
 }
