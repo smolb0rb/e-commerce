@@ -18,26 +18,31 @@ function showProductInfo(product, categoryName) {
 
     // Estructura de como se muestra esa info
     productInfoContainer.innerHTML = `
-<div class="row">
-         <div class="col-md-1 text-center" style="width: 64px; margin-left: 90px;">
-            <button style="margin-top: 195px;"><</button>
+    <div class="row">
+        <div class="col-md-1 text-center" style="width: 64px; margin-left: 90px;">
+            <button style="margin-top: 195px;">&lt;</button>
         </div>
+
         <div class="col-md-5 text-center">
-        <img src="${product.images[0]}" alt="${product.description}"class="img-fluid img-thumbnail mb-4" >
+            <img src="${product.images[0]}" alt="${product.description}"class="img-fluid img-thumbnail mb-4" >
         </div>
+
         <div class="col-md-1 text-center" style="width: 64px">
-            <button style="margin-top: 195px;">></button>
+            <button style="margin-top: 195px;">&gt;</button>
         </div>
 
         <div class="col-md-4">
             <h1> <b> ${product.name} </b> </h1>
             <h3>${categoryName}</h3>
             <h2> <b> Vendidos: ${product.soldCount} </b> </h2> 
-        <div class="card" style="width: 50rem;">
-            <div class="card-body">
-            <h5 class="card-title"> <b> Descripción </b> </h5>
-            <p class="card-text">${product.description}</p>
+
+            <div class="card" style="width: 50rem;">
+                <div class="card-body">
+                    <h5 class="card-title"> <b> Descripción </b> </h5>
+                    <p class="card-text">${product.description}</p>
+                </div>
+            </div>
         </div>
-</div>
-`
+    </div>
+    `
 }
