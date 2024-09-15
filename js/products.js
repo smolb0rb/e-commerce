@@ -9,7 +9,7 @@ function showProducts(productsArray) {
         let product = productsArray[i];
 
         newHtmlContent += `
-        <div class="list-group-item list-group-item-action cursor-active" data-id="${product.id}" onclick="selectProduct(${product.id})">  
+        <div class="list-group-item list-group-item-action cursor-active" onclick="selectProduct(${product.id})">  
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <img src="${product.image}" class="img-thumbnail">

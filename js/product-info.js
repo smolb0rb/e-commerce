@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     let productId = localStorage.getItem("selectedProductId");   //defini la varibale que almacena el valor que quede en el localstorch bajo el item selectedProductId 
 
-    getJSONData(`https://japceibal.github.io/emercado-api/products/${productId}.json`).then(function (resultObj) {   // getjsondata: petición URL que devuelve un archivo json, en general devuelve una promesa que muestra el resultado de la petición con el método .then (procesa el resultado de la promesa)
+    getJSONData(PRODUCT_INFO_URL + productId + EXT_TYPE).then(function (resultObj) {   // getjsondata: petición URL que devuelve un archivo json, en general devuelve una promesa que muestra el resultado de la petición con el método .then (procesa el resultado de la promesa)
         if (resultObj.status === "ok") {
             let selectedProduct = resultObj.data; //en esa variable se guarda la info/data del producto                                       
-            let categoryName = resultObj.data.category;  //en esa variable se guarda la categoria a la que pertenece el producto
-            showProductInfo(selectedProduct, categoryName);
+            showProductInfo(selectedProduct);
         }
     });
 });
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-function showProductInfo(product, categoryName) {
+function showProductInfo(product) {
     let productInfoContainer = document.getElementById("product-info-container");  //variable que almacena la referencia al dom q contiene ese id
 
     // Estructura de como se muestra esa info
