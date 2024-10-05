@@ -47,12 +47,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 });
 
-
-
 function selectProduct(productId){
-    localStorage.setItem("selectedProductId",productId);
-
-    window.location.href = "product-info.html"; 
+    window.location.href = `product-info.html?id=${productId}`; 
 }
 
 // Ordenamiento

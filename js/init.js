@@ -56,3 +56,6 @@ if (isLoggedIn()) {
   userNav.innerHTML = username;
 }
 
+function getDataFromURL(name) {
+  return new URL(document.location).searchParams.get(name);
+}

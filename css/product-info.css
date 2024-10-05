@@ -1,89 +1,73 @@
 body {
-    background-color: #F8F8F8;
+  background-color: #F8F8F8;
 }
 
 .col-3 {
-    flex: 0 0 auto;
-    width: 40%;
-    margin-bottom: 40px;
-    margin-left: 40px;
-    margin-top: 40px;
+  flex: 0 0 auto;
+  width: 40%;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  margin-top: 40px;
 }
 
 @media (min-width:768px) {
-    .col-md-5 {
-        flex: 0 0 auto;
-        width: 41.66666667%;
-        
-
-    }
-}
-
-
-.rating-container {
-  transform: scale(0.8);
-  transform-origin: top left; 
+  .col-md-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+  }
 }
 
 .title {
   font-weight: bold;
-  margin-bottom: 5px;
-  margin-left: 910px;
-  
 }
 
 .subtitle {
-  margin-bottom: 10px;
   color: #555;
-  margin-left: 910px;
 }
 
 .rating {
-    
-    unicode-bidi: bidi-override;
-    font-size: 2em;
-    border: #2f2baf;
-    font-size: 1.6em; 
-    margin-left: 910px;
-  }
-  
-  .rating input {
-    display: none;
-  }
-  
-  .rating label {
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-    font-size: 2em;
-  }
-  
-  
-  .rating label:hover,
-  .rating label:hover ~ label {
-    color: blue; 
-  }
-  
-  textarea {
-    display: block;
-    width: 35%;
-    height: 50px;
-    margin-top: 10px;
-    margin-left: 910px;
-  }
-  
-  button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #838c83;
-    color: rgb(16, 16, 16);
-    border: 2px ;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-left: 1250px;
-  }
-  
-  button:hover {
-    background-color: #d4d2e8;
-  }
-  
+  border: #2f2baf;
+  font-size: 1.6em;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  font-size: 2em;
+}
+
+.rating label:hover {
+  color: blue;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #838c83;
+  color: rgb(16, 16, 16);
+  border: 2px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d4d2e8;
+}
+
+#related {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#related img {
+  height: 200px;
+  border-radius: 8px;
+}

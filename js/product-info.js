@@ -1,5 +1,6 @@
+
 document.addEventListener("DOMContentLoaded", function () {
-    let productId = localStorage.getItem("selectedProductId");   //defini la varibale que almacena el valor que quede en el localstorch bajo el item selectedProductId 
+    let productId = getDataFromURL('id');
 
     getJSONData(PRODUCT_INFO_URL + productId + EXT_TYPE).then(function (resultObj) {   // getjsondata: petición URL que devuelve un archivo json, en general devuelve una promesa que muestra el resultado de la petición con el método .then (procesa el resultado de la promesa)
         if (resultObj.status === "ok") {
@@ -73,6 +74,18 @@ function showProductInfo(product) {
         sliderNav.appendChild(slideJump);
     }
 
+    let relatedDiv = document.getElementById('related');
+    for (let rel of product.relatedProducts) {
+        let html = `
+        <a href="product-info.html?id=${rel.id}" style="text-decoration: none; color: black;">
+            <img src="${rel.image}" height="100px" />
+            <p>${rel.name}</p>
+        </div>
+        `;
+        let relatedProduct = document.createElement('div');
+        relatedDiv.appendChild(relatedProduct);
+        relatedProduct.outerHTML = html;
+    }
 }
 
 //  - Sección de Calificaciones -
@@ -84,40 +97,72 @@ function getProductComments(productId) {
         .then(comments => showProductComments(comments))
         .catch(error => console.error('Error fetching comments:', error));
 }
+
+const commentsContainer = document.getElementById("product-comments-container");
+
 // Muestro esos comentarios con determinada info
 function showProductComments(comments) {
-    const commentsContainer = document.getElementById("product-comments-container");
     commentsContainer.innerHTML = "";
 
-    comments.forEach(comment => {
-        commentsContainer.innerHTML += `
-    
-        <div class="row">
-         <div class="col-md-6 mx-auto">
-         <div class="comment">
-         <div class="col-12 text-end">
-          <p class="text-end me-2">${comment.dateTime}</p>
-        </div>
-          <h6><b>${comment.user}</b></h6>
-          <p>${getStars(comment.score)} (${comment.score}/5)</p>
-          <p>"${comment.description}"</p> 
-        </div>
-        </div>
-        </div>
-        <br>
-      `;
+    comments.reverse().forEach(comment => {
+        addNewComment(comment);
     });
+}
+
+/**
+ * Comment debe tener: dateTime, user, score, description.
+ */
+function addNewComment(comment) {
+    commentsContainer.innerHTML = `
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="comment">
+                <div class="col-12 text-end">
+                    <p class="text-end me-2">${comment.dateTime}</p>
+                </div>
+                <h6><b>${comment.user}</b></h6>
+                <p>${getStars(comment.score)} (${comment.score}/5)</p>
+                <p>"${comment.description}"</p> 
+            </div>
+        </div>
+    </div>
+    <br>
+  ` + commentsContainer.innerHTML;
 }
 
 // Calificación representada con estrellas
 function getStars(score) {
     let stars = '';
     for (let i = 1; i <= 5; i++) {
-      if (i <= score) {
-        stars += '<i class="bi bi-star-fill text-black"></i>'; // Estrella llena
-      } else {
-        stars += '<i class="bi bi-star text-black"></i>'; // Estrella vacía
-      }
+        if (i <= score) {
+            stars += '<i class="bi bi-star-fill text-black"></i>'; // Estrella llena
+        } else {
+            stars += '<i class="bi bi-star text-black"></i>'; // Estrella vacía
+        }
     }
     return stars;
-  }
+}
+
+
+let commentBtn = document.getElementById('commentBtn');
+commentBtn.addEventListener('click', function (e) {
+    let comment = document.getElementById('comment');
+    let commentText = comment.value;
+
+    if (!commentText) {
+        return;
+    }
+
+    let stars = document.getElementById('stars-slide').value;
+    let user = localStorage.getItem('username');
+    let date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+
+    addNewComment({
+        dateTime: date,
+        user: user,
+        score: stars,
+        description: commentText
+    });
+
+    comment.value = "";
+});
