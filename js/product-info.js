@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showProductInfo(selectedProduct);
         }
     });
+    getProductComments(productId)
 });
 
 
@@ -62,7 +63,7 @@ function showProductInfo(product) {
 
         let slideImg = document.createElement('img');
         slideImg.src = imgUrl;
-        slideImg.id = "slide-" + (i+1);
+        slideImg.id = "slide-" + (i + 1);
 
         sliderImages.appendChild(slideImg)
 
@@ -73,3 +74,50 @@ function showProductInfo(product) {
     }
 
 }
+
+//  - Sección de Calificaciones -
+//Traigo los comentarios ya existentes en el archivo json
+function getProductComments(productId) {
+    const url = `https://japceibal.github.io/emercado-api/products_comments/${productId}.json`;
+    fetch(url)
+        .then(response => response.json())
+        .then(comments => showProductComments(comments))
+        .catch(error => console.error('Error fetching comments:', error));
+}
+// Muestro esos comentarios con determinada info
+function showProductComments(comments) {
+    const commentsContainer = document.getElementById("product-comments-container");
+    commentsContainer.innerHTML = "";
+
+    comments.forEach(comment => {
+        commentsContainer.innerHTML += `
+    
+        <div class="row">
+         <div class="col-md-6 mx-auto">
+         <div class="comment">
+         <div class="col-12 text-end">
+          <p class="text-end me-2">${comment.dateTime}</p>
+        </div>
+          <h6><b>${comment.user}</b></h6>
+          <p>${getStars(comment.score)} (${comment.score}/5)</p>
+          <p>"${comment.description}"</p> 
+        </div>
+        </div>
+        </div>
+        <br>
+      `;
+    });
+}
+
+// Calificación representada con estrellas
+function getStars(score) {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+      if (i <= score) {
+        stars += '<i class="bi bi-star-fill text-black"></i>'; // Estrella llena
+      } else {
+        stars += '<i class="bi bi-star text-black"></i>'; // Estrella vacía
+      }
+    }
+    return stars;
+  }
