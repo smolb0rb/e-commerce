@@ -80,7 +80,7 @@ function showProductInfo(product) {
         <a href="product-info.html?id=${rel.id}" style="text-decoration: none; color: black;">
             <img src="${rel.image}" height="100px" />
             <p>${rel.name}</p>
-        </div>
+        </a>
         `;
         let relatedProduct = document.createElement('div');
         relatedDiv.appendChild(relatedProduct);
