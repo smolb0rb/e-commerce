@@ -1,8 +1,10 @@
+// Retorna booleano indicando si el usuario esta logueado.
 function isLoggedIn() {
-    return localStorage.getItem("isAuthenticated") === "true"
+    return localStorage.getItem("userData") != null;
 }
 
-if (isLoggedIn()) { // redirect to index.html if already logged in
+// Si ya esta logueado, retorna a la pagina de inicio.
+if (isLoggedIn()) {
     document.location = 'index.html'
 }
 
@@ -11,10 +13,10 @@ const loginForm = document.getElementById("loginForm");
 loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim(); 
 
-    if (username === "") {
+    if (email === "") {
         alert("Por favor, ingrese su nombre de usuario.");
         return;
     }                   //campos NO vacíos
@@ -23,12 +25,9 @@ loginForm.addEventListener("submit", function(event) {
         alert("Por favor, ingrese su contraseña.");
         return;
     }
-    
-    // Si las credenciales son correctas, establecer la autenticación
-    localStorage.setItem("isAuthenticated", "true");
 
-    localStorage.setItem("username", username);
+    localStorage.setItem("userData", JSON.stringify({email: email}));
 
-    // Redirige al index
+    // Redirige al inicio
     window.location.href = "index.html";
 });

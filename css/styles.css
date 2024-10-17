@@ -199,14 +199,6 @@ li#userNav.nav-item {
 }
 
 #foto-perfil {
-  width: 100px;
-  height: 100px;
-  min-width: 100px;
-  min-height: 100px;
-  background-image: url('../img/img_perfil.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   border-radius: 100%;
   border: 1px dashed #a0a0a0;
 }

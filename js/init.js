@@ -1,3 +1,26 @@
+// ====================================
+// Cuando la pagina carga:
+
+// Si no esta logueado, redirige al login.
+if (!isLoggedIn()) {
+  document.location = 'login.html'
+}
+
+// Si esta logueado, setea el nombre de usuario en la barra de nav.
+if (isLoggedIn()) {
+  const email = getUserData().email;
+  const emailNav = document.getElementById("userNav");
+  emailNav.innerHTML = email;
+}
+
+// Setea el tema actual cuando la pagina carga.
+setTheme(getTheme());
+if (getTheme() == 'dark') {
+  toggleThemeIcon();
+}
+
+// ====================================
+
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
 const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
 const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
@@ -40,37 +63,54 @@ let getJSONData = function (url) {
     });
 }
 
+//=========================================
+// Funciones de utilidad.
+
+// Edita los datos del usuario a traves de un callback.
+function editUserData(fn) {
+  let data = getUserData();
+  fn(data);
+  setUserData(data);
+}
+
+// Guarda los datos del usuario en localStorage.
+function setUserData(data) {
+  localStorage.setItem("userData", JSON.stringify(data));
+}
+
+// Obtiene los datos del usuario desde el localStorage.
+function getUserData() {
+  let dataJson = localStorage.getItem("userData");
+  if (dataJson) {
+    return JSON.parse(dataJson);
+  }
+  return {};
+}
+
+// Retorna booleano indicando si el usuario esta logueado.
 function isLoggedIn() {
-  return localStorage.getItem("isAuthenticated") === "true"
+  return localStorage.getItem("userData") != null;
 }
 
-if (!isLoggedIn()) {
-  document.location = 'login.html'
-}
-
-if (isLoggedIn()) {
-  const username = localStorage.getItem("username")
-
-  const userNav = document.getElementById("userNav");
-
-  userNav.innerHTML = username;
-}
-
+// Obtiene un valor desde la URL.
 function getDataFromURL(name) {
   return new URL(document.location).searchParams.get(name);
 }
 
+// Desloguea al usuario y redirige al login.
 function logout() {
   localStorage.clear();
   document.location = 'login.html';
 }
 
+// Alterna el icono de "cambiar tema" entre el sol y la luna.
 function toggleThemeIcon() {
   let themeIcon = document.getElementById('theme-icon');
   themeIcon?.classList.toggle('fa-moon');
   themeIcon?.classList.toggle('fa-sun');
 }
 
+// Alterna el tema del sitio entre modo dia y noche.
 function toggleDarkMode() {
 
   toggleThemeIcon();
@@ -82,17 +122,35 @@ function toggleDarkMode() {
   setTheme(newTheme);
 }
 
+// Obtiene el tema actual, valores validos: dark, light.
 function getTheme() {
   return localStorage.getItem('theme') ?? 'light';
 }
 
+// Setea un tema, valores validos: dark, light.
 function setTheme(theme) {
   document.documentElement.setAttribute('data-bs-theme', theme);
   localStorage.setItem('theme', theme)
 }
 
-// Set current theme on every page load.
-setTheme(getTheme());
-if (getTheme() == 'dark') {
-  toggleThemeIcon();
+// Setea un nuevo valor en un input.
+function setInputValue(id, val) {
+  document.getElementById(id).value = val ?? "";
+}
+
+// Obtiene el valor de un input.
+function getInputValue(id) {
+  return document.getElementById(id).value;
+}
+
+/*
+ * Convierte un archivo en base64,
+ * se obtiene el resultado con una promesa.
+ */
+async function fileToBase64(file) {
+  return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.readAsDataURL(file);
+  });
 }
