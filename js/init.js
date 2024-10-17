@@ -77,20 +77,22 @@ function toggleDarkMode() {
 
   let theme = getTheme();
   let isDark = theme == 'dark';
-  let newTheme = !isDark ? 'dark' : 'light';
+  let newTheme = isDark ? 'light' : 'dark';
 
-  document.documentElement.setAttribute('data-bs-theme', newTheme);
-
-  localStorage.setItem('theme', newTheme)
+  setTheme(newTheme);
 }
 
 function getTheme() {
   return localStorage.getItem('theme') ?? 'light';
 }
 
-// Set current theme
-document.documentElement.setAttribute('data-bs-theme', getTheme());
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-bs-theme', theme);
+  localStorage.setItem('theme', theme)
+}
 
+// Set current theme on every page load.
+setTheme(getTheme());
 if (getTheme() == 'dark') {
   toggleThemeIcon();
 }
