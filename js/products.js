@@ -4,6 +4,18 @@ let lastShown = [];
 function showProducts(productsArray) {
     let newHtmlContent = "";
 
+    if (productsArray.length == 0) {
+        newHtmlContent = `
+        <div class="container mx-auto col-6">
+            <div class="alert alert-primary" role="alert">
+                Aqui no hay nada! Se el primero en <a class="alert-link" href="sell.html">publicar</a>.
+            </div>
+        </div>
+        `
+        document.getElementById("product-list-container").innerHTML = newHtmlContent;
+        return;
+    }
+
     // Itera sobre cada producto dentro del array 'products'
     for (let i = 0; i < productsArray.length; i++) {
         let product = productsArray[i];
@@ -33,7 +45,7 @@ function showProducts(productsArray) {
 
 document.addEventListener("DOMContentLoaded", function (e) {
 
-    let catID = localStorage.getItem("catID");
+    let catID = getDataFromURL('id');
 
     let url = PRODUCTS_URL + catID + EXT_TYPE;
 

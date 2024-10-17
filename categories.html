@@ -30,8 +30,25 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item" id="userNav">
+
+          <li class="nav-item" style="display: inline-flex;">
+
+            <div class="dropdown">
+              <button id="userNav" class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuario
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+                <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()">Cerrar sesion</a></li>
+              </ul>
+            </div>
+  
+            <a href="#" class="nav-link" onclick="toggleDarkMode()">
+              <i id="theme-icon" class="fas fa-moon" style="color: white;"></i>
+            </a>
           </li>
+
         </ul>
       </div>
     </div>
@@ -69,7 +86,7 @@
             <div class="col-3 p-0">
               <div class="btn-group" role="group">
                 <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+                <button class="btn btn-light btn-block" id="clearRangeFilter">Limpiar</button>
               </div>
             </div>
           </div>

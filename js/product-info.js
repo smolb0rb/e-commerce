@@ -77,10 +77,12 @@ function showProductInfo(product) {
     let relatedDiv = document.getElementById('related');
     for (let rel of product.relatedProducts) {
         let html = `
-        <a href="product-info.html?id=${rel.id}" style="text-decoration: none; color: black;">
-            <img src="${rel.image}" height="100px" />
+        <div>
+            <a href="product-info.html?id=${rel.id}">
+                <img src="${rel.image}" height="100px" />
+            </a>
             <p>${rel.name}</p>
-        </a>
+        </div>
         `;
         let relatedProduct = document.createElement('div');
         relatedDiv.appendChild(relatedProduct);
@@ -135,9 +137,9 @@ function getStars(score) {
     let stars = '';
     for (let i = 1; i <= 5; i++) {
         if (i <= score) {
-            stars += '<i class="bi bi-star-fill text-black"></i>'; // Estrella llena
+            stars += '<i class="fas fa-star"></i>';
         } else {
-            stars += '<i class="bi bi-star text-black"></i>'; // Estrella vacía
+            stars += '<i class="far fa-star"></i>';
         }
     }
     return stars;
