@@ -156,7 +156,7 @@ commentBtn.addEventListener('click', function (e) {
     }
 
     let stars = document.getElementById('stars-slide').value;
-    let user = localStorage.getItem('username');
+    let user = getUserData().email;
     let date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
     addNewComment({
