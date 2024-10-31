@@ -9,6 +9,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/cart.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,13 +54,31 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <br>
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+
+    <br/>
+
+    <div class="container mx-auto">
+      <h1><i class="fas fa-shopping-cart"></i> Carrito de compras</h1>
+    </div>
+
+    <br/>
+
+    <div class="container row mx-auto">
+      <div id="cart-item-list" class="list-group col-8"></div>
+
+      <div class="card col-4">
+        <div class="card-header">Detalles del pedido</div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-body-secondary">Tus items:</h6>
+          <ul id="cart-item-list-details" class="list-group list-group-flush">
+          </ul>
+        </div>
+        <div class="card-footer">Subtotal: <span id="subtotal"></span></div>
       </div>
+
     </div>
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
