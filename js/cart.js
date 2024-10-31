@@ -4,12 +4,8 @@ const cartDetailsList = document.getElementById('cart-item-list-details');
 let products = getJson('cart', {});
 
 let itemsHtml = '';
-let detailsHtml = '';
-let precioTotal = 0;
 for (let id in products) {
     let product = products[id];
-
-    precioTotal += product.cost * product.amount;
 
     itemsHtml += `
     <div class="list-group-item">
@@ -22,18 +18,41 @@ for (let id in products) {
             <span class="cart-item-price-unit">${product.currency} ${product.cost}</span>
             <span class="cart-item-amount-container">
                 Cant.
-                <input class="cart-item-amount form-control" type="number" value="${product.amount}">
+                <input oninput="amountChange(this, ${id})" class="cart-item-amount form-control" type="number" value="${product.amount}">
             </span>
         </div>
     </div>
     `;
+}
+cartItemList.innerHTML = itemsHtml;
 
-    detailsHtml += `
-    <li class="list-group-item">${product.amount}x ${product.name}</li>
-    `;
+loadDetails();
+
+function loadDetails() {
+    let detailsHtml = '';
+    let precioTotal = 0;
+
+    for (let id in products) {
+        let product = products[id];
+
+        precioTotal += product.cost * product.amount;
+
+        detailsHtml += `
+        <li class="list-group-item">${product.amount}x ${product.name}</li>
+        `;
+    }
+
+    cartDetailsList.innerHTML = detailsHtml;
+
+    document.getElementById('subtotal').textContent = "$ " + precioTotal;
 }
 
-cartItemList.innerHTML = itemsHtml;
-cartDetailsList.innerHTML = detailsHtml;
+function amountChange(input, id) {
+    let product = products[id];
+    let newAmount = input.value;
+    product.amount = newAmount;
 
-document.getElementById('subtotal').textContent = "$ " + precioTotal;
+    setJson('cart', products);
+
+    loadDetails();
+}
