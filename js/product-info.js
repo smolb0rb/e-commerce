@@ -1,17 +1,33 @@
+let selectedProduct = null;
 
 document.addEventListener("DOMContentLoaded", function () {
     let productId = getDataFromURL('id');
 
     getJSONData(PRODUCT_INFO_URL + productId + EXT_TYPE).then(function (resultObj) {   // getjsondata: petición URL que devuelve un archivo json, en general devuelve una promesa que muestra el resultado de la petición con el método .then (procesa el resultado de la promesa)
         if (resultObj.status === "ok") {
-            let selectedProduct = resultObj.data; //en esa variable se guarda la info/data del producto                                       
+            selectedProduct = resultObj.data; //en esa variable se guarda la info/data del producto                                       
             showProductInfo(selectedProduct);
         }
     });
     getProductComments(productId)
 });
 
+function comprar() {
+    // nombre, costo, moneda, imagen
+    let product = {
+        name: selectedProduct.name,
+        cost: selectedProduct.cost,
+        currency: selectedProduct.currency,
+        image: selectedProduct.images[0],
+        amount: 1
+    };
 
+    let products = getJson('cart', {});
+    products[selectedProduct.id] = product;
+    setJson('cart', products);
+
+    document.location = 'cart.html';
+}
 
 
 function showProductInfo(product) {
@@ -45,6 +61,11 @@ function showProductInfo(product) {
                     <td><b>${product.currency} ${product.cost}</b><td>
                 </tr>
             </table>
+            <br/>
+
+            <button class="btn btn-primary" onclick="comprar()">Comprar</button>
+
+            <br/>
             <br/>
             <div class="card" style="max-width: 50rem;">
                 <div class="card-body">
