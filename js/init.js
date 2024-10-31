@@ -75,16 +75,32 @@ function editUserData(fn) {
 
 // Guarda los datos del usuario en localStorage.
 function setUserData(data) {
-  localStorage.setItem("userData", JSON.stringify(data));
+  setJson('userData', data);
 }
 
 // Obtiene los datos del usuario desde el localStorage.
 function getUserData() {
-  let dataJson = localStorage.getItem("userData");
-  if (dataJson) {
-    return JSON.parse(dataJson);
+  return getJson('userData', {});
+}
+
+// Obtiene un objeto desde el localStorage, o retorna un valor por defecto.
+function getJson(key, def) {
+  // Obtiene los datos del localStorage
+  let result = localStorage.getItem(key);
+  if (result) {
+    // Si existe, lo convierte de string a objeto y lo retorna
+    return JSON.parse(result);
   }
-  return {};
+  // Retorna el valor por defecto
+  return def;
+}
+
+// Guarda un objeto en el localStorage
+function setJson(key, obj) {
+  // Convierte el objeto a string
+  let str = JSON.stringify(obj);
+  // Lo guarda en localStorage
+  localStorage.setItem(key, str);
 }
 
 // Retorna booleano indicando si el usuario esta logueado.
