@@ -170,3 +170,17 @@ async function fileToBase64(file) {
       reader.readAsDataURL(file);
   });
 }
+
+function setCartBadge() {
+  let amount = 0;
+  let products = getJson('cart', {});
+  for (let id in products) {
+    amount += parseInt(products[id].amount);
+  }
+  if (amount > 0) {
+    let badge = document.getElementById('cart-amount-badge');
+    if (badge) badge.textContent = amount;
+  }
+}
+
+setCartBadge()

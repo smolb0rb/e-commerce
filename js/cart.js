@@ -55,4 +55,6 @@ function amountChange(input, id) {
     setJson('cart', products);
 
     loadDetails();
+
+    setCartBadge()
 }
