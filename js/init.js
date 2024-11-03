@@ -177,9 +177,14 @@ function setCartBadge() {
   for (let id in products) {
     amount += parseInt(products[id].amount);
   }
+  let badge = document.getElementById('cart-amount-badge');
+  if (!badge) {
+    return;
+  }
   if (amount > 0) {
-    let badge = document.getElementById('cart-amount-badge');
-    if (badge) badge.textContent = amount;
+    badge.textContent = amount;
+  } else {
+    badge.textContent = '';
   }
 }
 

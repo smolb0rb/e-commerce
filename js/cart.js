@@ -3,6 +3,13 @@ const cartDetailsList = document.getElementById('cart-item-list-details');
 
 let products = getJson('cart', {});
 
+let productCount = Object.keys(products).length;
+
+if (productCount == 0) {
+    document.getElementById('cart-empty-alert').classList.toggle('hidden');
+    document.getElementById('cart-main').classList.toggle('hidden');
+}
+
 let itemsHtml = '';
 for (let id in products) {
     let product = products[id];
@@ -11,7 +18,7 @@ for (let id in products) {
     <div class="list-group-item">
         <div class="cart-item">
             <div class="cart-item-img-container">
-                <i class="far fa-times-circle"></i>
+                <!--i class="far fa-times-circle"></i-->
                 <img class="cart-item-img" src="${product.image}">
             </div>
             <span class="cart-item-name">${product.name}</span>
