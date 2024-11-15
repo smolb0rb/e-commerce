@@ -18,7 +18,7 @@ for (let id in products) {
     <div class="list-group-item">
         <div class="cart-item">
             <div class="cart-item-img-container">
-                <!--i class="far fa-times-circle"></i-->
+                <i class="far fa-times-circle" onclick="deleteFromCart(${id})"></i>
                 <img class="cart-item-img" src="${product.image}">
             </div>
             <span class="cart-item-name">${product.name}</span>
@@ -35,23 +35,47 @@ cartItemList.innerHTML = itemsHtml;
 
 loadDetails();
 
-function loadDetails() {
-    let detailsHtml = '';
+/**
+ * Funcion que se llama cuando se hace click en el
+ * boton circular de eliminar
+ */
+function deleteFromCart(id) {
+
+    
+
+}
+
+
+/**
+ * Funcion que devuelve el subtotal de todos los productos
+ */
+function calcularTotalProductos() {
     let precioTotal = 0;
 
     for (let id in products) {
         let product = products[id];
 
         precioTotal += product.cost * product.amount;
+    }
+
+    return precioTotal;
+}
+
+function loadDetails() {
+
+    let detailsHtml = '';
+    for (let id in products) {
+        let product = products[id];
 
         detailsHtml += `
         <li class="list-group-item">${product.amount}x ${product.name}</li>
         `;
     }
-
     cartDetailsList.innerHTML = detailsHtml;
 
+    const precioTotal = calcularTotalProductos();
     document.getElementById('subtotal').textContent = "$ " + precioTotal;
+
 }
 
 function amountChange(input, id) {
@@ -65,3 +89,76 @@ function amountChange(input, id) {
 
     setCartBadge()
 }
+
+/**
+ * 
+ * Esta funcion se llama cuando se hace click en
+ * el btn 'Finalizar Compra', se obtiene como param.
+ * la referencia DOM del boton, la cual nos sirve
+ * para obtener la ref. al <form>
+ * 
+ */
+function comprarBtnClick(btn) {
+
+    /** referencia DOM al <form> 
+     * 
+     * Con esto se puede validar el form
+     * para asegurar que todos los campos
+     * son validos (ej. los 'required')
+     * 
+    */
+    const form = btn.parentElement;
+
+    
+
+}
+
+
+/**
+ * Funcion que se llama en tiempo real cuando se cambia el tipo de envio.
+ */
+function changeShipping(e) {
+    /**
+     * Posibles valores y su significado:
+     * 1  == Envio premium
+     * 2  == Envio express
+     * 3  == Envio standard
+     */
+    const envio = e.target.value;
+
+    let valorEnvio = 0; // calcular
+
+
+    // Se actualiza el valor en pantalla
+    document.getElementById('costo-envio').textContent = '$ ' + valorEnvio;
+    document.getElementById('costo-envio2').textContent = '$ ' + valorEnvio;
+
+    // calcular envio+productos
+    document.getElementById('costo-total').textContent = '$ ' + 0;
+
+}
+
+/**
+ * Para todas las casillas de seleccion del tipo de envio, se hace
+ * que la funcion 'changeShipping' sea llamada en el evento 'change'
+ */
+for (let radio of document.querySelectorAll('input[name="shipping"]')) {
+    radio.addEventListener('change', changeShipping)
+}
+
+
+// Esto se ejecuta una sola vez al cargar la pagina
+(function(){
+
+    const precioTotal = calcularTotalProductos();
+
+    // Por defecto es 7%, y se le quita decimales
+    const costoEnvioInicial = Math.floor(precioTotal * 0.07);
+
+    document.getElementById('costo-envio').textContent = '$ ' + costoEnvioInicial;
+    document.getElementById('costo-envio2').textContent = '$ ' + costoEnvioInicial;
+
+    // calcular envio+productos
+    document.getElementById('costo-total').textContent = '$ ' + 0;
+
+})();

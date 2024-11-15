@@ -75,16 +75,92 @@
     <div id="cart-main" class="container row mx-auto">
       <div id="cart-item-list" class="list-group col-8"></div>
 
-      <div class="card col-4">
-        <div class="card-header">Detalles del pedido</div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-body-secondary">Tus items:</h6>
-          <ul id="cart-item-list-details" class="list-group list-group-flush">
-          </ul>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">Detalles del pedido</div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Tus items:</h6>
+            <ul id="cart-item-list-details" class="list-group list-group-flush">
+            </ul>
+          </div>
+          <div class="card-footer">Subtotal: <span id="subtotal"></span></div>
+          <div class="card-footer">Envio: <span id="costo-envio2"></span></div>
+          <div class="card-footer">Total: <span id="costo-total"></span></div>
         </div>
-        <div class="card-footer">Subtotal: <span id="subtotal"></span></div>
-      </div>
 
+        <br>
+
+        <form action="#" method="POST">
+          <div class="card">
+            <div class="card-header">Envío</div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-body-secondary">Tipo de envío:</h6>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <label>
+                    <input type="radio" value="1" name="shipping" required>
+                    Premium 2 a 5 días (15%)
+                  </label>
+                </li>
+                <li class="list-group-item">
+                  <label>
+                    <input type="radio" value="2" name="shipping" checked>
+                    Express 5 a 8 días (7%)
+                  </label>
+                </li>
+                <li class="list-group-item">
+                  <label>
+                    <input type="radio" value="3" name="shipping">
+                    Standard 12 a 15 días (5%)
+                  </label>
+                </li>
+              </ul>
+          
+              <br>
+          
+              <label>
+                Dirección de envío
+          
+                <div class="input-group">
+                  <input type="text" class="form-control" name="departamento" placeholder="Departamento">
+                  <input type="text" class="form-control" name="localidad" placeholder="Localidad">
+                </div>
+                <div class="input-group" style="margin-top: 4px;">
+                  <input type="text" class="form-control" name="calle" placeholder="Calle">
+                  <input type="text" class="form-control" name="calle_num" placeholder="Número">
+                  <input type="text" class="form-control" name="calle_esquina" placeholder="Esquina">
+                </div>
+          
+              </label>
+          
+              <br><br>
+          
+              <h6 class="card-subtitle mb-2 text-body-secondary">Forma de pago:</h6>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <label>
+                    <input type="radio" value="1" name="payment" required checked>
+                    Tarjeta de crédito
+                  </label>
+                </li>
+                <li class="list-group-item">
+                  <label>
+                    <input type="radio" value="2" name="payment">
+                    Transferencia bancaria
+                  </label>
+                </li>
+              </ul>
+
+            </div>
+            <div class="card-footer">Costo del envío: <span id="costo-envio"></span></div>
+          </div>
+
+          <br>
+
+          <button type="button" class="btn btn-primary" onclick="comprarBtnClick(this)">Finalizar compra</button>
+        </form>
+      </div>
+      
     </div>
   </main>
 
