@@ -40,10 +40,11 @@ loadDetails();
  * boton circular de eliminar
  */
 function deleteFromCart(id) {
-    delete products[id]; 
-    setJson('cart', products); 
-    loadDetails();  
+
+    
+
 }
+
 
 /**
  * Funcion que devuelve el subtotal de todos los productos
@@ -60,10 +61,6 @@ function calcularTotalProductos() {
     return precioTotal;
 }
 
-/**
- * Recarga los detalles del carrito, actualizando la lista de productos,
- * el subtotal, el costo de envío y el total.
- */
 function loadDetails() {
 
     let detailsHtml = '';
@@ -79,10 +76,8 @@ function loadDetails() {
     const precioTotal = calcularTotalProductos();
     document.getElementById('subtotal').textContent = "$ " + precioTotal;
 
-    actualizarCostoTotal();
 }
 
-// Actualiza la cantidad de producto en el carrito
 function amountChange(input, id) {
     let product = products[id];
     let newAmount = input.value;
@@ -91,55 +86,58 @@ function amountChange(input, id) {
     setJson('cart', products);
 
     loadDetails();
-    calcularCostoEnvio(); 
-    actualizarCostoTotal(); 
 
     setCartBadge()
 }
 
-
-// Esta función calcula el costo del envío según el tipo.
-    
-    function calcularCostoEnvio() {
-        const subtotal = calcularTotalProductos();
-        const envioSeleccionado = document.querySelector('input[name="shipping"]:checked')?.value;
-
-        let valorEnvio = 0;
-
-        if (envioSeleccionado === "1") {
-            valorEnvio = subtotal * 0.10; // 10% para envío premium
-        } else if (envioSeleccionado === "2") {
-            valorEnvio = subtotal * 0.05; // 5% para  envío express
-        } else if (envioSeleccionado === "3") {
-            valorEnvio = subtotal * 0.02; // 2% para envío standard
-        }
-
-        // Se actualiza en la interfaz
-        document.getElementById('costo-envio').textContent = '$ ' + valorEnvio.toFixed(2);
-        document.getElementById('costo-envio2').textContent = '$ ' + valorEnvio.toFixed(2);
-
-        return valorEnvio; // Retorna el valor para usar en el costo total
-
-}
-
 /**
- * Función para actualizar el costo total (productos + envío)
+ * 
+ * Esta funcion se llama cuando se hace click en
+ * el btn 'Finalizar Compra', se obtiene como param.
+ * la referencia DOM del boton, la cual nos sirve
+ * para obtener la ref. al <form>
+ * 
  */
-function actualizarCostoTotal() { 
-    const subtotal = calcularTotalProductos();
-    const costoEnvio = calcularCostoEnvio(); 
-    const costoTotal = subtotal + costoEnvio;
+function comprarBtnClick(btn) {
 
-    document.getElementById('costo-total').textContent = "$ " + costoTotal.toFixed(2);
+    /** referencia DOM al <form> 
+     * 
+     * Con esto se puede validar el form
+     * para asegurar que todos los campos
+     * son validos (ej. los 'required')
+     * 
+    */
+    const form = btn.parentElement;
+
+    
+
 }
+
 
 /**
  * Funcion que se llama en tiempo real cuando se cambia el tipo de envio.
  */
 function changeShipping(e) {
-    calcularCostoEnvio(); 
-    actualizarCostoTotal(); 
+    /**
+     * Posibles valores y su significado:
+     * 1  == Envio premium
+     * 2  == Envio express
+     * 3  == Envio standard
+     */
+    const envio = e.target.value;
+
+    let valorEnvio = 0; // calcular
+
+
+    // Se actualiza el valor en pantalla
+    document.getElementById('costo-envio').textContent = '$ ' + valorEnvio;
+    document.getElementById('costo-envio2').textContent = '$ ' + valorEnvio;
+
+    // calcular envio+productos
+    document.getElementById('costo-total').textContent = '$ ' + 0;
+
 }
+
 /**
  * Para todas las casillas de seleccion del tipo de envio, se hace
  * que la funcion 'changeShipping' sea llamada en el evento 'change'
@@ -160,9 +158,28 @@ for (let radio of document.querySelectorAll('input[name="shipping"]')) {
     document.getElementById('costo-envio').textContent = '$ ' + costoEnvioInicial;
     document.getElementById('costo-envio2').textContent = '$ ' + costoEnvioInicial;
 
-    // Calcular el costo total al inicio
-    calcularCostoEnvio();
-    actualizarCostoTotal();
+    // calcular envio+productos
+    document.getElementById('costo-total').textContent = '$ ' + 0;
 
 })();
 
+document.addEventListener("DOMContentLoaded", function () {
+    const finalizarCompraButton = document.getElementById("finalizarCompra");
+  
+    finalizarCompraButton.addEventListener("click", function () {
+      // Selecciona los campos de dirección
+      const addressFields = document.querySelectorAll('.input-group input');
+  
+      // Verifica si todos los campos están llenos
+      const addressValid = Array.from(addressFields).every(field => field.value.trim() !== "");
+  
+      if (!addressValid) {
+        alert("Por favor, complete todos los campos de la dirección.");
+        return; 
+      }
+  
+      // Si todos los campos están completos
+      alert("¡Compra exitosa! Gracias por tu compra.");
+    });
+  });
+  
