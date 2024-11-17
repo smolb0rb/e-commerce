@@ -16,7 +16,7 @@ for (let id in products) {
 
     itemsHtml += `
     <div class="list-group-item">
-        <div class="cart-item">
+        <div class="cart-item" data-id="${id}">
             <div class="cart-item-img-container">
                 <i class="far fa-times-circle" onclick="deleteFromCart(${id})"></i>
                 <img class="cart-item-img" src="${product.image}">
@@ -42,6 +42,12 @@ loadDetails();
 function deleteFromCart(id) {
     delete products[id];
     setJson('cart', products);
+
+    const cartItem = document.querySelector(`.cart-item[data-id="${id}"]`);
+    if (cartItem) {
+        cartItem.parentElement.remove();
+    }
+
     loadDetails();
 }
 
@@ -90,7 +96,9 @@ function amountChange(input, id) {
     setJson('cart', products);
 
     loadDetails();
-    calcularCostoEnvio(); 
+
+    calcularCostoEnvio();
+    
     actualizarCostoTotal(); 
 
     setCartBadge()
@@ -121,25 +129,22 @@ function calcularCostoEnvio() {
 
 }
 
-/**
- * Función para actualizar el costo total (productos + envío)
- */
+
 function actualizarCostoTotal() {
     const subtotal = calcularTotalProductos();
-    const costoEnvio = calcularCostoEnvio(); // Calcula y actualiza el costo de envío
+    const costoEnvio = calcularCostoEnvio(); 
     const costoTotal = subtotal + costoEnvio;
 
     document.getElementById('costo-total').textContent = "$ " + costoTotal.toFixed(2);
 }
 
 
-
 /**
  * Funcion que se llama en tiempo real cuando se cambia el tipo de envio.
  */
 function changeShipping(e) {
-    calcularCostoEnvio(); // Recalcular el costo de envío
-    actualizarCostoTotal(); // Recalcular el total (productos + envío)
+    calcularCostoEnvio();
+    actualizarCostoTotal();
 }
 
 /**
@@ -162,22 +167,18 @@ for (let radio of document.querySelectorAll('input[name="shipping"]')) {
     document.getElementById('costo-envio').textContent = '$ ' + costoEnvioInicial;
     document.getElementById('costo-envio2').textContent = '$ ' + costoEnvioInicial;
 
-    // Calcular el costo total al inicio
     calcularCostoEnvio();
     actualizarCostoTotal();
 
 })();
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const finalizarCompraButton = document.getElementById("finalizarCompra");
 
     finalizarCompraButton.addEventListener("click", function () {
-        // Selecciona los campos de dirección
+       
         const addressFields = document.querySelectorAll('.input-group input');
-
-        // Verifica si todos los campos están llenos
         const addressValid = Array.from(addressFields).every(field => field.value.trim() !== "");
 
         if (!addressValid) {
@@ -185,7 +186,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Si todos los campos están completos
+        const productQuantities = document.querySelectorAll('.cart-item-amount');
+
+        // Aquí se verifica si todas las cantidades son mayores a 0
+        
+        const quantitiesValid = Array.from(productQuantities).every(input => {
+            const value = parseInt(input.value, 10);
+            return value > 0;
+        });
+
+        if (!quantitiesValid) {
+            alert("Por favor, asegúrese de que todas las cantidades de producto sean mayores a cero.");
+            return;
+        }
+
         alert("¡Compra exitosa! Gracias por tu compra.");
     });
 });
